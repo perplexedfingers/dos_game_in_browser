@@ -98,15 +98,14 @@ async def unit_of_work(info, reporter):
         reporter.done()
 
 
-def main(info, reporter):
+def run(info, reporter):
     tasks = (unit_of_work(info_, reporter) for info_ in info)
     loop = asyncio.get_event_loop()
     loop.run_until_complete(asyncio.gather(*tasks))
     loop.close()
     reporter.all_done()
 
-
-if __name__ == '__main__':
+def main():
     with open(INFO, encoding='utf8') as f:
         raw_info = json.load(f)
 
@@ -125,10 +124,14 @@ if __name__ == '__main__':
     curses.cbreak()
 
     try:
-        main(info, reporter)
+        run(info, reporter)
     except Exception as e:
         raise e
     finally:
         curses.echo()
         curses.nocbreak()
         curses.endwin()
+
+
+if __name__ == '__main__':
+    main()
