@@ -1,1 +1,2 @@
-# dos_game_in_browser
+Credit:
+    https://github.com/rwv/chinese-dos-games-web
