@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from django.db import models
 from django.utils.text import slugify
 
@@ -13,12 +11,11 @@ class Language(models.Model):
 
 
 class Game(models.Model):
-    checksum = models.BinaryField(max_length=2096)
-    file_location = models.FilePathField(path=str(Path(__file__).resolve().parent))
-    image_location = models.FilePathField(path=str(Path(__file__).resolve().parent), null=True)
+    checksum = models.BinaryField(max_length=4096)
+    file_location = models.CharField(max_length=50)
+    image_location = models.CharField(max_length=50, null=True)
     download_url = models.URLField()
     executable = models.CharField(max_length=50)
-    year = models.DateField(null=True)
     slug = models.SlugField(allow_unicode=True, unique=True)
     tags = models.ManyToManyField(Tag, related_name='used_in')
 
